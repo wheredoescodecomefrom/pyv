@@ -2,6 +2,8 @@ import argparse
 from version_manager import set_version, get_current_version, list_versions, uninstall_version
 from installer import install_version
 from registry import fetch_available_versions
+from doctor import doctor
+from utils import exec_command, clean
 
 def main():
     parser = argparse.ArgumentParser(prog="pyv", description="Python version manager")
@@ -28,6 +30,17 @@ def main():
     # pyv list
     subparsers.add_parser("list", help="List all installed Python versions")
 
+    # pyv doctor
+    subparsers.add_parser("doctor", help="Check for issues with the installation")
+
+    # pyv exec
+    exec_parser = subparsers.add_parser("exec", help="Run a command with a specific python version")
+    exec_parser.add_argument("version")
+    exec_parser.add_argument("command", nargs=argparse.REMAINDER)
+
+    # pyv clean
+    clean_parser = subparsers.add_parser("clean", help="Clean up the installation")
+
     args = parser.parse_args()
 
     if args.command == "install":
@@ -44,6 +57,12 @@ def main():
     elif args.command == "list":
         for v in list_versions():
             print(f"- {v}")
+    elif args.command == "doctor":
+        doctor()
+    elif args.command == "clean":
+        clean()
+    elif args.command == "exec":
+        exec_command(args.version, args.command)
 
 if __name__ == "__main__":
     main()
