@@ -1,0 +1,28 @@
+[project]
+name = "pyv"
+version = "0.1.0"
+description = "A lightweight Python version manager (like nvm for Python)"
+authors = [
+    { name="Joseph Altig", email="me@joealtig.com" }
+]
+readme = "README.md"
+requires-python = ">=3.7"
+license = { text = "MIT" }
+keywords = ["python", "version manager", "cli", "nvm-like"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Build Tools"
+]
+
+[project.scripts]
+pyv = "pyv:main"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
